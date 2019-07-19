@@ -136,6 +136,16 @@ class ReactTags extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.suggestions.length !== this.props.suggestions.length) {
+      this.updateSuggestions();
+    }
+  }
+
+  updateSuggestions() {
+    this.setState({ suggestions: this.props.suggestions });
+  }
+
   filteredSuggestions(query, suggestions) {
     if (this.props.handleFilterSuggestions) {
       return this.props.handleFilterSuggestions(query, suggestions);
@@ -420,6 +430,8 @@ class ReactTags extends Component {
     } = this.props;
 
     const position = !inline ? INPUT_FIELD_POSITIONS.BOTTOM : inputFieldPosition;
+
+    console.log('jr', suggestions);
 
     const tagInput = !this.props.readOnly ? (
       <div className={this.state.classNames.tagInput}>
